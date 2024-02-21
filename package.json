@@ -1,0 +1,19 @@
+{
+  "name": "vishnu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "combinedData.js",
+  "scripts": {
+    "start": "node combinedData.js",
+    "dev": "nodemon combinedData.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "utf8": "^3.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}

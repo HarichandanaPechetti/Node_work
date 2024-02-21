@@ -1,0 +1,27 @@
+[
+    {
+      "pid": 2001,
+      "name": "Smartphone",
+      "price": 499,
+      "category": "Electronics"
+    },
+    {
+      "pid": 2002,
+      "name": "Laptop",
+      "price": 999,
+      "category": "Electronics"
+    },
+    {
+      "pid": 2003,
+      "name": "T-shirt",
+      "price": 19.99,
+      "category": "Clothing"
+    },
+    {
+      "pid": 2004,
+      "name": "Sneakers",
+      "price": 59.99,
+      "category": "Shoes"
+    }
+  ]
+  

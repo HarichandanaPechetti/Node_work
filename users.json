@@ -1,0 +1,29 @@
+[
+    {
+      "id": 1001,
+      "name": "Harichandana",
+      "age": 30,
+      "email": "harichandana@gmail.com"
+    },
+    {
+      "id": 1002,
+      "name": "Vishnuvandana",
+      "age": 35,
+      "email": "vishnuvandana@gmail.com"
+    },
+    {
+    "id": 1003,
+    "name": "Rani",
+    "age": 28,
+    "email": "rani@gmail.com"
+    },
+    {
+
+      "id": 1004,
+      "name": "Greeshant",
+      "age": 55,
+      "email": "greeshant@gmail.com"
+    }
+]
+
+  

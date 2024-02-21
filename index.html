@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Display</title>
+    <style>
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h2>Data Display</h2>
+
+<form id="dataForm">
+    <label for="id">Enter ID or PID:</label>
+    <input type="text" id="inputValue" name="inputValue" placeholder="Enter ID or PID" />
+    <button type="button" onclick="displayData()">Submit</button>
+</form>
+
+<table id="dataTable" style="display: none">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Email</th>
+      <th>PID</th>
+      <th>Product Name</th>
+      <th>Price</th>
+      <th>Category</th>
+    </tr>
+  </thead>
+  <tbody id="dataBody">
+    <!-- Data rows will be dynamically added here -->
+  </tbody>
+</table>
+
+<script>
+  async function displayData() {
+    const inputValue = document.getElementById("inputValue").value;
+
+    const usersResponse = await fetch("users.json");
+    const usersData = await usersResponse.json();
+
+    const productsResponse = await fetch("products.json");
+    const productsData = await productsResponse.json();
+
+    const combinedDataResponse = await fetch("usersProducts.json");
+    const combinedData = await combinedDataResponse.json();
+
+    const filteredData = combinedData.filter(item => item.id == inputValue || item.pid == inputValue);
+
+    if (filteredData.length > 0) {
+        const dataTable = document.getElementById("dataTable");
+        const dataBody = document.getElementById("dataBody");
+        dataBody.innerHTML = "";
+
+        filteredData.forEach(({ id, pid }) => {
+            const user = usersData.find(user => user.id === id);
+            const product = productsData.find(product => product.pid === pid);
+
+            if (user && product) {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td>${user.age}</td>
+                    <td>${user.email}</td>
+                    <td>${product.pid}</td>
+                    <td>${product.name}</td>
+                    <td>${product.price}</td>
+                    <td>${product.category}</td>
+                `;
+                dataBody.appendChild(row);
+            }
+        });
+
+        dataTable.style.display = "block";
+    } else {
+        alert("No data found for the given ID or PID.");
+    }
+}
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Display</title>
+    <style>
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h2>Data Display</h2>
+
+<form id="dataForm">
+    <label for="id">Enter ID:</label>
+    <input type="text" id="id" name="id" placeholder="Enter ID" />
+    <button type="button" onclick="displayData()">Submit</button>
+</form>
+
+<table id="dataTable" style="display: none">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Email</th>
+      <th>PID</th>
+      <th>Product Name</th>
+      <th>Price</th>
+      <th>Category</th>
+    </tr>
+  </thead>
+  <tbody id="dataBody">
+    // Data rows will be dynamically added here 
+  </tbody>
+</table>
+
+<script>
+  async function displayData() {
+    const inputId = document.getElementById("id").value;
+
+    const usersResponse = await fetch("users.json");
+    const usersData = await usersResponse.json();
+
+    const productsResponse = await fetch("products.json");
+    const productsData = await productsResponse.json();
+
+    const combinedDataResponse = await fetch("usersProducts.json");
+    const combinedData = await combinedDataResponse.json();
+
+    const userData = usersData.find(user => user.id === parseInt(inputId, 10));
+    const productData = productsData.find(product => product.pid === userData.pid);
+    
+
+    if (userData && productData) {
+      const dataTable = document.getElementById("dataTable");
+      const dataBody = document.getElementById("dataBody");
+      dataBody.innerHTML = "";
+
+      const row = document.createElement("tr");
+      row.innerHTML = `
+          <td>${userData.id}</td>
+          <td>${userData.name}</td>
+          <td>${userData.age}</td>
+          <td>${userData.email}</td>
+          <td>${productData.pid}</td>
+          <td>${productData.name}</td>
+          <td>${productData.price}</td>
+          <td>${productData.category}</td>
+        `;
+      dataBody.appendChild(row);
+      dataTable.style.display = "block";
+    } else {
+      alert("No data found for the given ID.");
+    }
+  }
+</script>
+</body>
+</html>
+
+
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Display</title>
+    <style>
+      form {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Data Display</h2>
+
+    <form id="dataForm">
+      <label for="id">Enter ID:</label>
+      <input type="text" id="id" name="id" placeholder="Enter ID" />
+      <label for="pid">Enter PID:</label>
+      <input type="text" id="pid" name="pid" placeholder="Enter PID" />
+      <button type="button" onclick="displayData()">Submit</button>
+    </form>
+
+    <table id="dataTable" style="display: none">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Email</th>
+          <th>PID</th>
+          <th>Product Name</th>
+          <th>Price</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+      <tbody id="dataBody">
+       //Data rows will be dynamically added here 
+      </tbody>
+    </table>
+
+    <script>
+      async function displayData() {
+        const inputId = document.getElementById("id").value;
+        const inputProdId = document.getElementById("pid").value;
+
+        const usersResponse = await fetch("users.json");
+        const usersData = await usersResponse.json();
+
+        const productsResponse = await fetch("products.json");
+        const productsData = await productsResponse.json();
+
+        const combinedDataResponse = await fetch("usersProducts.json");
+        const combinedDataToDisplay = await combinedDataResponse.json();
+
+        // Print data based on id and pid
+        //Here i'm getting the combination of id and pId 
+        //CHeck the inputId from comination of id file
+        //then read the address id 
+        combinedDataToDisplay.forEach(({ id, pid }) => {
+
+            //Here write the logic 
+            //Compare the input to user file with combine id 
+        
+          if (user && product) {
+            const dataTable = document.getElementById("dataTable");
+            const dataBody = document.getElementById("dataBody");
+            dataBody.innerHTML = "";
+
+            const row = document.createElement("tr");
+            row.innerHTML = `
+          <td>${user.id}</td>
+          <td>${user.name}</td>
+          <td>${user.age}</td>
+          <td>${user.email}</td>
+          <td>${product.pid}</td>
+          <td>${Product.name}</td>
+          <td>${product.price}</td>
+          <td>${product.category}</td>
+        `;
+            dataBody.appendChild(row);
+            dataTable.style.display = "block";
+            console.log(`User: ${user.name}, Product: ${product.name}`);
+          } else {
+            console.log(`Data not found for id: ${id} and pid: ${pid}`);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
+-->
